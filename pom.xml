@@ -54,6 +54,23 @@
 				</exclusion>
 			</exclusions>
 		</dependency>
+		
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.13</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.iisigroup.colabase</groupId>
+			<artifactId>citi-json</artifactId>
+			<version>4.0.1-colabase-jdk1.8-andytest0911</version>
+		</dependency>
+		<dependency>
+			<groupId>com.iisigroup.colabase</groupId>
+			<artifactId>citi-ssl</artifactId>
+			<version>4.0.1-colabase-jdk1.8-andytest0911</version>
+		</dependency>
 	</dependencies>
 
 	<build>
