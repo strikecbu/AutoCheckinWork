@@ -9,6 +9,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.sql.Timestamp;
+import java.util.Calendar;
+
 /**
  * @author AndyChen
  * @version <ul>
@@ -28,9 +31,11 @@ public class StatusController {
     @RequestMapping("/status")
     @ResponseBody()
     public String status() {
-        return "{\"abc\": 123}";
 
-
+        final Calendar instance = Calendar.getInstance();
+        final String timezone = instance.getTimeZone().getDisplayName();
+        final Timestamp timestamp = new Timestamp(instance.getTimeInMillis());
+        return "timezone: " + timezone + ", timestamp: " + timestamp;
     }
 
     @RequestMapping("/testGet")
