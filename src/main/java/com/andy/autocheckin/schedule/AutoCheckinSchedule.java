@@ -62,8 +62,10 @@ public class AutoCheckinSchedule {
         //是假日就不checkin
         final String timezone = "Asia/Taipei";
         Calendar instance = Calendar.getInstance(TimeZone.getTimeZone(timezone));
-        if(checkIsHoliday(instance.getTimeInMillis()))
+        if(checkIsHoliday(instance.getTimeInMillis())) {
+            logger.info("Today is holiday, skip checkin schedule.");
             return;
+        }
 
         logger.info(String.format("Delay %s secs", delaySec));
         logger.info("System current time: {}", new Timestamp(System.currentTimeMillis()));
@@ -84,8 +86,6 @@ public class AutoCheckinSchedule {
         transLogService.saveTransLog(transLog);
         logger.info("Checkin Job complete.");
     }
-
-
 
     public boolean checkIsHoliday(long timeMillis) {
         final SimpleDateFormat format = new SimpleDateFormat("yyyyMMdd");
