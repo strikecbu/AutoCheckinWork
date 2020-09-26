@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <table style="width: 30%">
+        <tr>
+            <th>time</th>
+            <th>parameters</th>
+            <th>status</th>
+            <th>responseString</th>
+        </tr>
+        <tr th:each="tran : ${trans}">
+            <td th:text="${tran.getTime()}">2020-09-26</td>
+            <td th:text="${tran.getParameters()}">EmpId: 123</td>
+            <td th:text="${tran.getStatus()}">200</td>
+            <td th:text="${tran.getResponseString()}">{"haha": 123}</td>
+        </tr>
+    </table>
+</head>
+<body>
+
+</body>
+</html>
