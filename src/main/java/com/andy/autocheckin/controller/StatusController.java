@@ -22,11 +22,11 @@ import java.util.Calendar;
 @Controller
 public class StatusController {
 
-    public StatusController(SslClient sslClient) {
+    public StatusController(SslClient<ResponseContent> sslClient) {
         this.sslClient = sslClient;
     }
 
-    private SslClient sslClient;
+    private final SslClient<ResponseContent> sslClient;
 
     @RequestMapping("/status")
     @ResponseBody()
