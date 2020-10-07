@@ -14,4 +14,5 @@ public interface ApiService extends SslClient<ResponseContent> {
 
     ResponseContent checkinApi(String empId, Double Lng, Double lat);
     ResponseContent checkinApi(String empId);
+    ResponseContent checkinApiWithRandomLocation(String empId);
 }

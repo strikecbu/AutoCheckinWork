@@ -10,6 +10,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 
+import java.util.Random;
+
 /**
  * @author AndyChen
  * @version <ul>
@@ -39,5 +41,14 @@ public class ApiServiceImpl extends SslClientImpl<ResponseContent> implements Ap
     @Override
     public ResponseContent checkinApi(String empId) {
         return checkinApi(empId, 121.5546303, 25.0585685);
+    }
+
+    @Override
+    public ResponseContent checkinApiWithRandomLocation(String empId) {
+        int i = new Random().nextInt(5);
+        double random = (i == 0 ? 1 : i) * 0.0000001;
+        double lng = 121.5546303 + random;
+        double lat = 25.0585685 + random;
+        return checkinApi(empId, lng, lat);
     }
 }

@@ -1,14 +1,12 @@
 package com.andy.autocheckin.controller;
 
-import com.andy.autocheckin.model.ApiData;
-import com.iisigroup.colabase.json.model.ApiRequest;
+import com.andy.autocheckin.service.ApiService;
 import com.iisigroup.colabase.json.model.ResponseContent;
 import com.iisigroup.colabase.ssl.service.SslClient;
-import com.iisigroup.colabase.ssl.util.PostFormDataFactory;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-
 import java.sql.Timestamp;
 import java.util.Calendar;
 
@@ -22,11 +20,14 @@ import java.util.Calendar;
 @Controller
 public class StatusController {
 
-    public StatusController(SslClient<ResponseContent> sslClient) {
+    public StatusController(SslClient<ResponseContent> sslClient, ApiService apiService) {
         this.sslClient = sslClient;
+        this.apiService = apiService;
     }
 
     private final SslClient<ResponseContent> sslClient;
+
+    private final ApiService apiService;
 
     @RequestMapping("/status")
     @ResponseBody()
@@ -38,24 +39,14 @@ public class StatusController {
         return "timezone: " + timezone + ", timestamp: " + timestamp;
     }
 
-    @RequestMapping("/testGet")
+    @RequestMapping("/testGet/{empId}")
     @ResponseBody()
-    public String testGet() {
-        final ApiData req = PostFormDataFactory.getInstance(ApiData.class);
-        req.setHttpMethod(ApiRequest.HTTPMethod.POST);
-        req.setIgnoreSSLcert(true);
-//        req.setTargetUrl("https://beesmart.iisigroup.com/PunchByGPS");
-        String targetUrl = "https://beesmart.iisigroup.com/PunchByGPS?PunchLng=121.5546303&EmpID=xxxxx&WorkOff=1800&PunchLat=25.0585685";
-//        targetUrl = targetUrl.replace("xxxxx", "1510002");
-        req.setTargetUrl(targetUrl);
-//        req.setPunchLng("121.5546303");
-//        req.setPunchLat("25.0585685");
-//        req.setEmpID("xxxxx");
-//        req.setWorkOff("1800");
-
-        final ResponseContent responseContent = sslClient.sendRequest(req);
-
-        return responseContent.getResponseJson().toString();
+    public String testGet(@PathVariable String empId) {
+        if(empId == null)
+            empId = "XXX";
+        ResponseContent responseContent = apiService.checkinApiWithRandomLocation(empId);
+//        final ResponseContent responseContent = sslClient.sendRequest(req);
+        return responseContent.getRawResponseData().toString();
     }
 
 

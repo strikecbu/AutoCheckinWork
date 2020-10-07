@@ -10,6 +10,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 
+import java.util.Random;
+
 /**
  * @author AndyChen
  * @version <ul>
@@ -36,8 +38,10 @@ public class ApiServiceDevImpl extends SslClientImpl<ResponseContent> implements
         String temp = "https://beesmart.iisigroup.com/PunchByGPS?PunchLng=%s&EmpID=%s&WorkOff=1800&PunchLat=%s";
 
         final String targetUrl = String.format(temp, Lng, empId, lat);
-        logger.info("TargetUrl and parameters: {}", targetUrl);
-        req.setTargetUrl("https://www.google.com");
+        logger.info("DEV TargetUrl and parameters: {}", targetUrl);
+        String targetUrl1 = "https://www.google.com";
+        logger.info("Actually request url: {}", targetUrl1);
+        req.setTargetUrl(targetUrl1);
 
         return sendRequest(req);
     }
@@ -45,5 +49,14 @@ public class ApiServiceDevImpl extends SslClientImpl<ResponseContent> implements
     @Override
     public ResponseContent checkinApi(String empId) {
         return checkinApi(empId, 121.5546303, 25.0585685);
+    }
+
+    @Override
+    public ResponseContent checkinApiWithRandomLocation(String empId) {
+        int i = new Random().nextInt(5);
+        double random = (i == 0 ? 1 : i) * 0.0000001;
+        double lng = 121.5546303 + random;
+        double lat = 25.0585685 + random;
+        return checkinApi(empId, lng, lat);
     }
 }

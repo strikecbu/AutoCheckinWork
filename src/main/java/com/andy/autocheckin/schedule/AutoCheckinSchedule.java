@@ -3,6 +3,7 @@ package com.andy.autocheckin.schedule;
 import com.andy.autocheckin.model.Holiday;
 import com.andy.autocheckin.model.TransLog;
 import com.andy.autocheckin.service.ApiService;
+import com.andy.autocheckin.service.ApiServiceDevImpl;
 import com.andy.autocheckin.service.HolidayService;
 import com.andy.autocheckin.service.TransLogService;
 import com.iisigroup.colabase.json.model.ResponseContent;
@@ -74,7 +75,7 @@ public class AutoCheckinSchedule {
         logger.info("Start checkin...");
         instance = Calendar.getInstance(TimeZone.getTimeZone(timezone));
         logger.info("Checkin {} timestamp: {}", timezone, new Timestamp(instance.getTimeInMillis()));
-        final ResponseContent response = sslClient.checkinApi(empId);
+        final ResponseContent response = sslClient.checkinApiWithRandomLocation(empId);
         logger.info("Server response status: {}", response.getStatusCode());
         logger.info("Server response text: {}", response.getRawResponseData());
 
