@@ -100,6 +100,10 @@
 					<include>*.jar</include>
 				</includes>
 			</resource>
+			<resource>
+				<directory>${project.basedir}/src/main/resources</directory>
+				<targetPath>BOOT-INF/classes</targetPath>
+			</resource>
 		</resources>
 	</build>
 </project>
